@@ -65,42 +65,28 @@ div#songs .pure-menu-heading {
     font-size:110%;
 }
 
-div#luke {
+td#div#luke {
     height: 100%;
     padding: 20px;
 }
 
-div#luke div {
+td#div#luke div {
     height: 100%;
     display: flex;
     align-items: center;
 }
 
-div#luke img {
+td#div#luke img {
     display: block;
     margin: 0 auto;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 25%;
+    max-height: 25%;
 }
 
-div#waveform-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-div#play-pause {
-    text-align: center;
-    font-size: 2em;
-}
-
-div#play-pause i {
-    display: block;
-    margin: 0 auto;
-    line-height: 128px;
-    vertical-align: middle;
-    font-size: 2em;
+p {
+  text-decoration: none;
+  outline: none;
+  color: #000000;
 }
 
 img.spin {

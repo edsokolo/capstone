@@ -1,60 +1,51 @@
-{% macro render_entry1(entry) %}
-<div class="row">
-    <div class="col-md-2 text-right metadata">
-        <ul class="list-unstyled">
-            <li>
-                {{ entry.datetime | dateformat("%m/%d/%y") }}
-            </li>
-            <li>
-                {{ entry.author.name }}
-            </li>
-        </ul>
-    </div>
-    <div class="col-md-10">
-        <h1>
-            <a type="entry-link" href="{{ url_for('view_entry',id = entry.id - 1)}}">{{ entry.title }}</a>
-        </h1>
-        {{ entry.content | markdown }}
-    </div>
-</div>
-{% endmacro %}
+{% macro filters(Posts) %}
+    <div class="panel panel-default">
+    <!-- Default panel contents -->
+        <div class="panel-heading">Ipsy Posts</div>
+            <!-- Table -->
+            <table class="table">
+                <thead>
+                <th>Media</th>
+                <th>Content</th>
+                <th>Post Date</th>
+                <th>Link</th>
+                <th>Labels</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                    <img src="https://scontent.xx.fbcdn.net/v/t15.0-10/s720x720/19691980_1390243597689624_6854099318526181376_n.jpg?oh=1861694b4bd98022b55c12061c0feb8e&oe=5A1B1AA5">
+                    </td>
+                    <td><p>In case you missed it... \"Everything comes to life when it has movement\" says Artist of the moment and NYX Spain Face Awards 2016 Winner, Jimena! 🎨 Watch how she creates this peachy, pink makeup look inspired by her own art. 🖌</p></td>
+                    <td><p>August 25 at 3:00pm</p></td>
+                    <td><a href="https://www.facebook.com/ipsy/videos/1439586409422009/">View Post</a></td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Label">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Add</button>
+                            </span>
+                        </div><!-- /input-group -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Label1
+                                <span>&#10006;</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Delete</a></li>
+                            </ul>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Label2
+                                <span>&#10006;</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Delete</a></li>
+                            </ul>
+                        </div>
 
-{% macro render_entry2(entry) %}
-<div class="row">
-    <div class="col-md-2 text-right metadata">
-        <ul class="list-unstyled">
-            <li>
-                {{ entry.datetime | dateformat("%m/%d/%y") }}
-            </li>
-            <li>
-                {{ entry.author.name }}
-            </li>
-        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
     </div>
-    <div class="col-md-10">
-        <h1>{{ entry.title }}</h1>
-        {{ entry.content | markdown }}
-    </div>
-</div>
 {% endmacro %}
-
-{% macro render_entry3(entry) %}
-<div class="row">
-    <div class="col-md-2 text-right metadata">
-        <ul class="list-unstyled">
-            <li>
-                {{ entry.datetime | dateformat("%m/%d/%y") }}
-            </li>
-            <li>
-                {{ entry.author.name }}
-            </li>
-            <li>
-        </ul>
-    </div>
-    <div class="col-md-10">
-        <h1>{{ entry.title }}</h1>
-        {{ entry.content | markdown }}
-    </div>
-</div>
-{% endmacro %}
-

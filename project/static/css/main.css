@@ -12,7 +12,6 @@ div {
 }
 
 a {
-  text-decoration: none;
   outline: none;
   color: #000000;
 }
@@ -32,64 +31,16 @@ div#wrapper {
     padding-bottom: 128px;
 }
 
-div#songs {
-    height: 100%;
-    background-color: #252A3A;
-    color: #FFFFFF;
-    overflow: auto;
-}
-
-div#songs .pure-menu {
-    background-color: #252A3A;
-    border: 0;
-}
-
-div#songs .pure-menu .pure-menu-heading {
-    color: inherit;
-}
-
-div#songs .pure-menu a {
-    color: inherit;
-}
-
-div#songs .pure-menu a:hover,
-div#songs .pure-menu a:focus {
-    background: rgb(55, 60, 90);
-}
-
-div#songs .pure-menu a {
-    margin-left: 0.5em;
-}
-div#songs .pure-menu-heading {
-    border-bottom: none;
-    font-size:110%;
-}
-
-td#div#luke {
-    height: 100%;
-    padding: 20px;
-}
-
-td#div#luke div {
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-td#div#luke img {
-    display: block;
-    margin: 0 auto;
-    max-width: 25%;
-    max-height: 25%;
-}
-
 p {
   text-decoration: none;
   outline: none;
   color: #000000;
 }
 
-img.spin {
-    animation: spin 3s linear infinite;
-}
 
+img {
+    display: block;
+    margin: 0 auto;
+    max-width: 75%;
+    max-height: 75%;
+    }

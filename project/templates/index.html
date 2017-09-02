@@ -71,7 +71,7 @@
             </thead>
             <tbody>
         {% for post in posts %}
-        {{ macros.filters(post,dp) }}
+        {{ macros.filters(post,dp,post.id) }}
         {% endfor %}
         {% endblock %}
             </tbody>

@@ -50,3 +50,16 @@ class Label(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     created_time = Column(DateTime, default=datetime.datetime.now)
+
+    def as_dictionary(self):
+        label = {
+            "id": self.id,
+            "name": self.name,
+            "created_time": self.datetime_handler(self.created_time)
+
+        }
+
+    def datetime_handler(self,x):
+        if isinstance(x, datetime.datetime):
+            return x.isoformat()
+        raise TypeError("Unknown type")

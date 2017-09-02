@@ -21,12 +21,16 @@ def start():
 
 @app.route("/", methods=["POST"])
 def add_label():
-    response = api.post_label()
+    label_response = api.post_label()
+    label_data = json.loads(label_response.data.decode("ascii"))
 
-    response = json.loads(response.data.decode("ascii"))
+    post_response = api.posts_get()
+    posts = json.loads(post_response.data.decode("ascii"))
 
     return render_template("index.html",
-                            response)
+                           data=label_data,
+                           posts=posts,
+                           dp=dp.parse)
 
 
 @app.route("/login", methods=["GET"])

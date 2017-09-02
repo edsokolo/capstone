@@ -1,4 +1,4 @@
-{% macro filters(post,dp) %}
+{% macro filters(post,dp,id) %}
             <!-- Table -->
                 <tr>
                     <td width="20%"><img src="{{ post.img_url }}"></td>
@@ -7,10 +7,13 @@
                     <td width="10%"><a href="{{ post.post_url }}">View Post</a></td>
                     <td width="20%">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Label">
+                            <form class="form-inline" method="POST" action="{{ url_for('add_label') }}">
+                            <input type="text" name="label" class="form-control" placeholder="Label">
+                            <input type="text" name="hidden" class="sr-only" value="{{ post.id }}">
                             <span class="input-group-btn">
-                                <a href="{{ url_for('add_label')}}"><button class="btn btn-default" type="button">Add</button></a>
+                                <button class="btn btn-default" type="submit">Add</button>
                             </span>
+                            </form>
                         </div><!-- /input-group -->
                         {% for label in post.labels %}
                         <div class="btn-group">

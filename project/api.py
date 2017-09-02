@@ -44,17 +44,22 @@ def posts_get():
     data = json.dumps([post.as_dictionary() for post in posts])
     return Response(data, 200, mimetype="application/json")
 
-@app.route("/api/posts", methods=["Post"])
+@app.route("/api/label", methods=["GET","POST"])
 @decorators.accept("application/json")
 def post_label():
-    label_name = request.args.get("label")
+    label_name = request.form["label"]
+    post_id = request.form["hidden"]
+
+    post = session.query(models.Post).filter(models.Post.id == post_id).all()
 
 #    if title_like:
     #        posts = posts.filter(models.Post.title.contains(title_like))
     #
     #    if body_like:
     #        posts = posts.filter(models.Post.body.contains(body_like))
-    label = models.Label(name="label_name")
+    label = models.Label(name=label_name)
+    post[0].labels.append(label)
+
     session.add(label)
     session.commit()
 

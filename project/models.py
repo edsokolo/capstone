@@ -15,22 +15,33 @@ class Post(Base):
     id = Column(Integer, primary_key = True)
     channel = Column(String, nullable=False)
     social_id = Column(String, nullable=False)
+    content = Column(String, nullable=False)
     created_time = Column(DateTime, default=datetime.datetime.now)
     post_url = Column(String, nullable=False)
     img_url = Column(String, nullable=False)
 
     labels = relationship("Label", secondary="post_label_association",
-                            backref="   posts")
+                            backref="posts")
+
+    def datetime_handler(self,x):
+        if isinstance(x, datetime.datetime):
+            return x.isoformat()
+        raise TypeError("Unknown type")
 
     def as_dictionary(self):
         post = {
+            "created_time": self.datetime_handler(self.created_time),
             "id": self.id,
             "channel": self.channel,
-            "social_id":self.social_id,
-            "created_time":self.created_time,
+            "social_id": self.social_id,
+            "content": self.content,
             "post_url":self.post_url,
             "img_url":self.img_url,
-            "labels": self.labels
+            "labels":
+                [{"id":label.id,
+                  "name": label.name,
+                  "created_time":self.datetime_handler(label.created_time)
+                  } for label in self.labels]
         }
         return post
 

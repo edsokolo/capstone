@@ -60,5 +60,19 @@
         </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
 
-{{ macros.filters(Posts) }}
-{% endblock %}
+<div class="panel panel-default"></div>
+        <table class="table">
+            <thead>
+            <th>Media</th>
+            <th>Content</th>
+            <th>Post Date</th>
+            <th>Link</th>
+            <th>Labels</th>
+            </thead>
+            <tbody>
+        {% for post in posts %}
+        {{ macros.filters(post,dp) }}
+        {% endfor %}
+        {% endblock %}
+            </tbody>
+        </table>

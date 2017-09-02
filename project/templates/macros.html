@@ -1,51 +1,28 @@
-{% macro filters(Posts) %}
-    <div class="panel panel-default">
-    <!-- Default panel contents -->
-        <div class="panel-heading">Ipsy Posts</div>
+{% macro filters(post,dp) %}
             <!-- Table -->
-            <table class="table">
-                <thead>
-                <th>Media</th>
-                <th>Content</th>
-                <th>Post Date</th>
-                <th>Link</th>
-                <th>Labels</th>
-                </thead>
-                <tbody>
                 <tr>
-                    <td>
-                    <img src="https://scontent.xx.fbcdn.net/v/t15.0-10/s720x720/19691980_1390243597689624_6854099318526181376_n.jpg?oh=1861694b4bd98022b55c12061c0feb8e&oe=5A1B1AA5">
-                    </td>
-                    <td><p>In case you missed it... \"Everything comes to life when it has movement\" says Artist of the moment and NYX Spain Face Awards 2016 Winner, Jimena! 🎨 Watch how she creates this peachy, pink makeup look inspired by her own art. 🖌</p></td>
-                    <td><p>August 25 at 3:00pm</p></td>
-                    <td><a href="https://www.facebook.com/ipsy/videos/1439586409422009/">View Post</a></td>
-                    <td>
+                    <td width="20%"><img src="{{ post.img_url }}"></td>
+                    <td width="40%"> <p>{{ post.content }}</p></td>
+                    <td width="10%"><p>{{ dp(post.created_time).strftime('%A, %B %d, %Y %I:%M%p') }}</p></td>
+                    <td width="10%"><a href="{{ post.post_url }}">View Post</a></td>
+                    <td width="20%">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Label">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Add</button>
+                                <a href="{{ url_for('add_label')}}"><button class="btn btn-default" type="button">Add</button></a>
                             </span>
                         </div><!-- /input-group -->
+                        {% for label in post.labels %}
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Label1
-                                <span>&#10006;</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Delete</a></li>
-                            </ul>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Label2
+                            {{ label.name }}
                                 <span>&#10006;</span>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Delete</a></li>
                             </ul>
                         </div>
-
+                        {% endfor %}
                     </td>
                 </tr>
-                </tbody>
-            </table>
-    </div>
 {% endmacro %}

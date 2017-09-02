@@ -11,11 +11,6 @@ div {
     box-sizing: border-box;
 }
 
-a {
-  outline: none;
-  color: #000000;
-}
-
 a:hover {
   outline: none;
   color: #252A3A;

@@ -20,7 +20,7 @@
                             <form class="form-inline" method="POST" action="{{ url_for('remove_label') }}">
                                 <input type="text" name="hidden1" class="sr-only" value="{{ post.id }}">
                             <div class="btn-group btn-group" role="group">
-                                <input type="text" name="delete" class="form-control" value="{{ label.id }}">
+                                <input type="text" name="delete" class="sr-only" value="{{ label.id }}">
                                 <div class="btn-group" role="group">
                                     <button class="btn btn-default" type="submit">{{ label.name }} <span>&#10006;</span></button>
                                 </div>

@@ -10,9 +10,7 @@ from . import api
 
 @app.route("/", methods=["GET"])
 def start():
-
     response = api.posts_get()
-
     posts = json.loads(response.data.decode("ascii"))
 
     return render_template("index.html",
@@ -22,6 +20,19 @@ def start():
 @app.route("/", methods=["POST"])
 def add_label():
     label_response = api.post_label()
+    label_data = json.loads(label_response.data.decode("ascii"))
+
+    post_response = api.posts_get()
+    posts = json.loads(post_response.data.decode("ascii"))
+
+    return render_template("index.html",
+                           data=label_data,
+                           posts=posts,
+                           dp=dp.parse)
+
+@app.route("/remove", methods=["GET","POST","DELETE"])
+def remove_label():
+    label_response = api.delete_label()
     label_data = json.loads(label_response.data.decode("ascii"))
 
     post_response = api.posts_get()

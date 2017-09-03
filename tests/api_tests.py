@@ -63,6 +63,41 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(postC["post_url"], "https://www.facebook.com/ipsy/videos/1439586409422009/")
         self.assertEqual(postC["labels"][0]["name"], "dog")
 
+    def test_add_label_association(self):
+        #TODO
+        pass
+
+    def test_remove_label_association(self):
+        cat = models.Label(name="cat")
+        dog = models.Label(name="dog")
+        postA = models.Post(channel="Facebook", social_id="1",
+                            content='In case you missed it... "Everything comes to life when it has movement" says Artist of the moment and NYX Spain Face Awards 2016 Winner, Jimena! 🎨 Watch how she creates this peachy, pink makeup look inspired by her own art. 🖌',
+                            post_url="https://www.facebook.com/ipsy/videos/1439586409422009/",
+                            img_url="https://scontent.xx.fbcdn.net/v/t15.0-10/s720x720/19691980_1390243597689624_6854099318526181376_n.jpg?oh=1861694b4bd98022b55c12061c0feb8e&oe=5A1B1AA5")
+        postA.labels = [cat]
+        postB = models.Post(channel="Facebook", social_id="2",
+                            content='In case you missed it... "Everything comes to life when it has movement" says Artist of the moment and NYX Spain Face Awards 2016 Winner, Jimena! 🎨 Watch how she creates this peachy, pink makeup look inspired by her own art. 🖌',
+                            post_url="https://www.facebook.com/ipsy/videos/1439586409422009/",
+                            img_url="https://scontent.xx.fbcdn.net/v/t15.0-10/s720x720/19691980_1390243597689624_6854099318526181376_n.jpg?oh=1861694b4bd98022b55c12061c0feb8e&oe=5A1B1AA5")
+        postB.labels = [dog]
+        postC = models.Post(channel="Facebook", social_id="3",
+                            content='In case you missed it... "Everything comes to life when it has movement" says Artist of the moment and NYX Spain Face Awards 2016 Winner, Jimena! 🎨 Watch how she creates this peachy, pink makeup look inspired by her own art. 🖌',
+                            post_url="https://www.facebook.com/ipsy/videos/1439586409422009/",
+                            img_url="https://scontent.xx.fbcdn.net/v/t15.0-10/s720x720/19691980_1390243597689624_6854099318526181376_n.jpg?oh=1861694b4bd98022b55c12061c0feb8e&oe=5A1B1AA5")
+        postC.labels = [cat, dog]
+        session.add_all([postA, postB, postC])
+        session.commit()
+
+        response = self.client.delete("/api/label/association_delete",
+                                   headers=[("Accept", "application/json")])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.mimetype, "application/json")
+
+
+
+
+
     def tearDown(self):
         """ Test teardown """
         session.close()

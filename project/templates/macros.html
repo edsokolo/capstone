@@ -6,26 +6,28 @@
                     <td width="10%"><p>{{ dp(post.created_time).strftime('%A, %B %d, %Y %I:%M%p') }}</p></td>
                     <td width="10%"><a href="{{ post.post_url }}">View Post</a></td>
                     <td width="20%">
-                        <div class="input-group">
+                        <div class="input-group-left">
                             <form class="form-inline" method="POST" action="{{ url_for('add_label') }}">
                             <input type="text" name="label" class="form-control" placeholder="Label">
                             <input type="text" name="hidden" class="sr-only" value="{{ post.id }}">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="submit">Add</button>
+                            <span class="input-group-btn-left">
+                                <button class="btn btn-success" type="submit">Add</button>
                             </span>
                             </form>
-                        </div><!-- /input-group -->
-                        {% for label in post.labels %}
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ label.name }}
-                                <span>&#10006;</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Delete</a></li>
-                            </ul>
+                            </div><!-- /input-group -->
+                        <div class="input-group-left">
+                            {% for label in post.labels %}
+                            <form class="form-inline" method="POST" action="{{ url_for('remove_label') }}">
+                                <input type="text" name="hidden1" class="sr-only" value="{{ post.id }}">
+                            <div class="btn-group btn-group" role="group">
+                                <input type="text" name="delete" class="form-control" value="{{ label.id }}">
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-default" type="submit">{{ label.name }} <span>&#10006;</span></button>
+                                </div>
+                                </div>
+                                </form>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </td>
                 </tr>
 {% endmacro %}

@@ -44,7 +44,7 @@ def posts_get():
     data = json.dumps([post.as_dictionary() for post in posts])
     return Response(data, 200, mimetype="application/json")
 
-@app.route("/api/label", methods=["GET","POST"])
+@app.route("/api/label/association_add", methods=["GET","POST"])
 @decorators.accept("application/json")
 def post_label():
     label_name = request.form["label"]
@@ -57,6 +57,7 @@ def post_label():
     #
     #    if body_like:
     #        posts = posts.filter(models.Post.body.contains(body_like))
+    ### Need to add logic to validate that label already exists
     label = models.Label(name=label_name)
     post[0].labels.append(label)
 
@@ -69,3 +70,33 @@ def post_label():
     headers = {"Location": url_for("start", id=label.id)}
     return Response(data, 201, headers=headers,
                     mimetype="application/json")
+
+
+@app.route("/api/label/association_delete", methods=["GET","POST","DELETE"])
+@decorators.accept("application/json")
+def delete_label():
+    post_id = request.form["hidden1"]
+    label_id = request.form["delete"]
+
+    posts = session.query(models.Post).filter(models.Post.id == post_id).all()
+    post = posts[0]
+
+    labels = session.query(models.Label).filter(models.Label.id == label_id).all()
+    label = labels[0]
+
+    labels = post.labels
+    labels.remove(label)
+
+
+    if not label:
+        message = "Could not find association with post_id {} and label_id {}".format(post_id, label_id)
+        data = json.dumps({"message": message})
+        return Response(data, 404, mimetype="application/json")
+
+    session.commit()
+
+    # Return a 201 Created, containing the post as JSON and with the
+    # Location header set to the location of the post
+    message = "Association with post_id {} and label_id {} is deleted".format(post_id, label_id)
+    data = json.dumps({"message": message})
+    return Response(data, 201, mimetype="application/json")

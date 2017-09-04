@@ -7,7 +7,7 @@
                     <td width="10%"><a href="{{ post.post_url }}">View Post</a></td>
                     <td width="20%">
                         <div class="input-group-left">
-                            <form class="form-inline" method="POST" action="{{ url_for('add_label') }}">
+                                <form class="form-inline" method="POST" action="{{ url_for('add_label') }}">
                             <input type="text" name="label" class="form-control" placeholder="Label">
                             <input type="text" name="hidden" class="sr-only" value="{{ post.id }}">
                             <span class="input-group-btn-left">

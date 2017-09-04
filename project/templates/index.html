@@ -3,61 +3,66 @@
 {% block content %}
 
     <div class="row">
-        <div class="col-lg-4">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Choose Facebook Account
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">ipsy</a></li>
-                    <li><a href="#">ipsyOS</a></li>
-                    <li><a href="#">GenBeauty</a></li>
-                </ul>
+        <form class="form" method="GET" action="{{ url_for('add_label') }}">
+            <div class="col-lg-2">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Choose Facebook Account
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">ipsy</a></li>
+                        <li><a href="#">ipsyOS</a></li>
+                        <li><a href="#">GenBeauty</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Search for posts like...">
+                    </div><!-- /input-group -->
+                </div>
+                <div class='col-lg-2'>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker6'>
+                            <input type='text' class="form-control" name="date_start" placeholder="{{ dt.datetime.today().strftime('%Y-%m-%d') }}"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-lg-2'>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker7'>
+                            <input type='text' class="form-control" name="date_end" placeholder="{{ (dt.datetime.today() + dt.timedelta(days=1)).strftime('%Y-%m-%d') }}"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            <div class='col-lg-2'>
                 <span class="input-group-btn">
-                    <button class="btn btn-Success" type="button">Search</button>
-                </span>
-            </div><!-- /input-group -->
-        <div class="container">
-            <div class='col-md-5'>
-                <div class="form-group">
-                    <div class='input-group date' id='datetimepicker6'>
-                        <input type='text' class="form-control" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                            <button class="btn btn-Success" type="submit">Search</button>
                         </span>
-                    </div>
-                </div>
             </div>
-            <div class='col-md-5'>
-                <div class="form-group">
-                    <div class='input-group date' id='datetimepicker7'>
-                        <input type='text' class="form-control" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker6').datetimepicker();
-                $('#datetimepicker7').datetimepicker({
-                    useCurrent: false //Important! See issue #1075
+
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker6').datetimepicker();
+                    $('#datetimepicker7').datetimepicker({
+                        useCurrent: false //Important! See issue #1075
+                    });
+                    $("#datetimepicker6").on("dp.change", function (e) {
+                        $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+                    });
+                    $("#datetimepicker7").on("dp.change", function (e) {
+                        $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+                    });
                 });
-                $("#datetimepicker6").on("dp.change", function (e) {
-                    $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-                });
-                $("#datetimepicker7").on("dp.change", function (e) {
-                    $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-                });
-            });
-        </script>
-        </div><!-- /.col-lg-6 -->
+            </script>
+        </form>
     </div><!-- /.row -->
 
 <div class="panel panel-default"></div>

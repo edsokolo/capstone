@@ -2,6 +2,8 @@ from flask import render_template
 from flask_restful import Resource, Api
 import json
 import dateutil.parser as dp
+import datetime as dt
+
 
 from . import app
 from . import models
@@ -15,7 +17,8 @@ def start():
 
     return render_template("index.html",
                            posts=posts,
-                           dp=dp.parse)
+                           dp=dp.parse,
+                           dt=dt)
 
 @app.route("/", methods=["POST"])
 def add_label():
@@ -30,7 +33,7 @@ def add_label():
                            posts=posts,
                            dp=dp.parse)
 
-@app.route("/remove", methods=["GET","POST","DELETE"])
+@app.route("/remove", methods=["POST"])
 def remove_label():
     label_response = api.delete_label()
     label_data = json.loads(label_response.data.decode("ascii"))
@@ -48,3 +51,11 @@ def remove_label():
 def login():
     return render_template("login.html")
 
+@app.route("/", methods=["GET"])
+def start_continue():
+    response = api.posts_get()
+    posts = json.loads(response.data.decode("ascii"))
+
+    return render_template("index.html",
+                           posts=posts,
+                           dp=dp.parse)

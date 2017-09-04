@@ -57,8 +57,16 @@ def post_label():
     #
     #    if body_like:
     #        posts = posts.filter(models.Post.body.contains(body_like))
-    ### Need to add logic to validate that label already exists
-    label = models.Label(name=label_name)
+
+    label = session.query(models.Label).filter(models.Label.name == label_name).all()
+    label = label[0]
+
+    ##Add logic that flashs
+    if not label:
+        message = "Could not find label {}".format(label_name)
+        data = json.dumps({"message": message})
+        return Response(data, 404, mimetype="application/json")
+
     post[0].labels.append(label)
 
     session.add(label)
@@ -72,7 +80,7 @@ def post_label():
                     mimetype="application/json")
 
 
-@app.route("/api/label/association_delete", methods=["GET","POST","DELETE"])
+@app.route("/api/label/association_delete", methods=["POST"])
 @decorators.accept("application/json")
 def delete_label():
     post_id = request.form["hidden1"]

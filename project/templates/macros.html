@@ -1,10 +1,9 @@
 {% macro filters(post,dp,id) %}
-            <!-- Table -->
                 <tr>
                     <td width="20%"><img src="{{ post.img_url }}"></td>
                     <td width="40%"> <p>{{ post.content }}</p></td>
                     <td width="10%"><p>{{ dp(post.created_time).strftime('%A, %B %d, %Y %I:%M%p') }}</p></td>
-                    <td width="10%"><a href="{{ post.post_url }}">View Post</a></td>
+                    <td width="10%"><a href="{{ post.post_url }}" target="_blank">View Post</a></td>
                     <td width="20%">
                         <div class="input-group-left">
                                 <form class="form-inline" method="POST" action="{{ url_for('add_label') }}">
@@ -30,4 +29,21 @@
                         </div>
                     </td>
                 </tr>
+{% endmacro %}
+
+{% macro labels(label,dp,id) %}
+    <tr>
+        <td width="20%"> <p>{{ label.name }}</p></td>
+        <td width="30%"><p>{{ dp(label.created_time).strftime('%A, %B %d, %Y %I:%M%p') }}</p></td>
+        <td width="50%">
+            <div class="input-group-left">
+                    <form class="form-inline" method="POST" action="{{ url_for('drop_label') }}">
+                <input type="text" name="label_id" class="sr-only" value="{{ label.id }}">
+                <span class="input-group-btn-left">
+                    <button class="btn btn-success" type="submit">Delete</button>
+                </span>
+                </form>
+                </div><!-- /input-group -->
+        </td>
+    </tr>
 {% endmacro %}

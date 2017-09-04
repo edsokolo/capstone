@@ -1,25 +1,12 @@
 {% import "macros.html" as macros %}
-{% extends "Base.html" %}
+{% extends "base.html" %}
 {% block content %}
 
     <div class="row">
-        <form class="form" method="GET" action="{{ url_for('start') }}">
-            <div class="col-lg-2">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Choose Facebook Account
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">ipsy</a></li>
-                        <li><a href="#">ipsyOS</a></li>
-                        <li><a href="#">GenBeauty</a></li>
-                    </ul>
-                </div>
-            </div>
+        <form class="form" method="GET" action="{{ url_for('start_continue') }}">
                 <div class="col-lg-2">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="search" placeholder="Search for posts like...">
+                        <input type="text" class="form-control" name="search" placeholder="Search for labels...">
                     </div><!-- /input-group -->
                 </div>
                 <div class='col-lg-2'>
@@ -65,19 +52,30 @@
         </form>
     </div><!-- /.row -->
 
+<div class="row">
+    <div class="panel panel-default"></div>
+        <form class="form" method="POST" action="{{ url_for('new_label') }}">
+            <span class="input-group-btn">
+                <div class="col-lg-2">
+                    <input type="text" name="label_name" class="form-control" placeholder="New label...">
+                </div>
+                <div class="col-lg-2">
+                    <button class="btn btn-success" type="submit">Create</button>
+                </div>
+            </span>
+        </form>
+</div>
 <div class="panel panel-default"></div>
         <table class="table">
             <thead>
-            <th>Media</th>
-            <th>Content</th>
-            <th>Post Date</th>
-            <th>Link</th>
             <th>Labels</th>
+            <th>Date Created</th>
+            <th></th>
             </thead>
             <tbody>
-        {% for post in posts %}
-        {{ macros.filters(post,dp,post.id) }}
-        {% endfor %}
-        {% endblock %}
+                {% for label in labels %}
+                    {{ macros.labels(label,dp,id) }}
+                {% endfor %}
             </tbody>
         </table>
+        {% endblock %}

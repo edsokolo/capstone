@@ -59,7 +59,10 @@
             </div>
         </div>
 
-    {{ response }}
+
+    {% for label in labels %}
+    {{ label }}
+    {% endfor %}
 
     </body>
 </html>

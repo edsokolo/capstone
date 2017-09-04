@@ -58,6 +58,7 @@ class Label(Base):
             "created_time": self.datetime_handler(self.created_time)
 
         }
+        return label
 
     def datetime_handler(self,x):
         if isinstance(x, datetime.datetime):

@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Sequence, ForeignKey, Table, DateTime
 from sqlalchemy.orm import relationship
+from flask_login import UserMixin
 from flask import url_for
 import datetime
 
@@ -64,3 +65,10 @@ class Label(Base):
         if isinstance(x, datetime.datetime):
             return x.isoformat()
         raise TypeError("Unknown type")
+
+class User(Base, UserMixin):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True)
+    email = Column(String(128), unique=True)
+    password = Column(String(128))

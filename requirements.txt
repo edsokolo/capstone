@@ -7,3 +7,10 @@ itsdangerous
 jsonschema
 nose
 psycopg2
+flask-script
+flask-migrate
+flask-login
+mistune
+splinter
+urllib
+selenium

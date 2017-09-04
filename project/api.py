@@ -114,28 +114,29 @@ def delete_label():
 @decorators.accept("application/json")
 def labels_get():
     """Get a list of posts """
-    #label_like = (request.args.get("search"))
-    #try:
-    #    date_start = request.args.get("date_start")
-    #    date_start = date_start.strftime('%Y-%m-%d')
-    #except: AttributeError
+    label_like = (request.args.get("search"))
+    try:
+        date_start = request.args.get("date_start")
+        date_start = date_start.strftime('%Y-%m-%d')
+    except: AttributeError
 
-    #try:
-    #    date_end = request.args.get("date_end")
-    #    date_end = date_end.strftime('%Y-%m-%d')
-    #except: AttributeError
+    try:
+        date_end = request.args.get("date_end")
+        date_end = date_end.strftime('%Y-%m-%d')
+    except: AttributeError
 
     # Get and filter the posts from the database
     labels = session.query(models.Label)
-    #if post_like:
-    #    post_like = post_like.lower()
-    #    posts = posts.filter(models.Post.content.contains(post_like))
 
-    #if date_start:
-    #    posts = posts.filter(models.Post.created_time >= date_start)
+    if label_like:
+        label_like = label_like.lower()
+        labels = labels.filter(models.Label.name.contains(label_like))
 
-    #if date_end:
-    #    posts = posts.filter(models.Post.created_time <= date_end)
+    if date_start:
+        labels = labels.filter(models.Label.created_time >= date_start)
+
+    if date_end:
+        labels = labels.filter(models.Label.created_time <= date_end)
 
     labels = labels.order_by(models.Label.created_time.desc())
 

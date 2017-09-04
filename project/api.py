@@ -137,7 +137,7 @@ def labels_get():
     #if date_end:
     #    posts = posts.filter(models.Post.created_time <= date_end)
 
-    labels = labels.order_by(models.Label.created_time)
+    labels = labels.order_by(models.Label.created_time.desc())
 
 
     # Convert the posts to JSON and return a response

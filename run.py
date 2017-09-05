@@ -30,6 +30,12 @@ def adduser():
     session.add(user)
     session.commit()
 
-if __name__ == '__main__':
-    manager.run()
+class DB(object):
+    def __init__(self, metadata):
+        self.metadata = metadata
 
+migrate = Migrate(app, DB(Base.metadata))
+manager.add_command('db', MigrateCommand)
+
+if __name__ == "__main__":
+    manager.run()

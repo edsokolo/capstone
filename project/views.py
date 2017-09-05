@@ -76,16 +76,9 @@ def login_post():
         flash("Incorrect username or password", "danger")
         return redirect(url_for("login_get"))
 
-    response = api.posts_get()
-    posts = json.loads(response.data.decode("ascii"))
-
     login_user(user)
     logged_in = current_user.is_authenticated
-    return render_template("index.html",
-                           posts=posts,
-                           logged_in=logged_in,
-                           dp=dp.parse,
-                           dt=dt)
+    return redirect(request.args.get('previous') or request.args.get('next') or url_for("start"))
 
 @app.route("/logout", methods=["GET"])
 def logout_get():
@@ -95,7 +88,7 @@ def logout_get():
 
 
 @app.route("/labels", methods=["GET"])
-@login_required
+
 def start_continue():
     logged_in = current_user.is_authenticated
     response = api.labels_get()

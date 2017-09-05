@@ -68,6 +68,7 @@ def login_get():
 
 @app.route("/login", methods=["POST"])
 def login_post():
+    logged_in = current_user.is_authenticated
     email = request.form["email"]
     password = request.form["password"]
     user = session.query(models.User).filter_by(email=email).first()
@@ -75,9 +76,16 @@ def login_post():
         flash("Incorrect username or password", "danger")
         return redirect(url_for("login_get"))
 
+    response = api.posts_get()
+    posts = json.loads(response.data.decode("ascii"))
+
     login_user(user)
     logged_in = current_user.is_authenticated
-    return redirect(request.args.get('previous') or request.args.get('next') or url_for("start"))
+    return render_template("index.html",
+                           posts=posts,
+                           logged_in=logged_in,
+                           dp=dp.parse,
+                           dt=dt)
 
 @app.route("/logout", methods=["GET"])
 def logout_get():

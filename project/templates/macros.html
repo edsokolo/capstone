@@ -1,4 +1,4 @@
-{% macro filters(post,dp,id) %}
+{% macro filters(post,labels,dp,id) %}
                 <tr>
                     <td width="20%"><img src="{{ post.img_url }}"></td>
                     <td width="40%"> <p>{{ post.content }}</p></td>
@@ -7,7 +7,13 @@
                     <td width="20%">
                         <div class="input-group-left">
                                 <form class="form-inline" method="POST" action="{{ url_for('add_label') }}">
-                            <input type="text" name="label" class="form-control" placeholder="Label">
+                            <input list="labels" type="text" name="label" class="form-control" placeholder="Label">
+                                    <datalist id="labels">
+                                        {% for label in labels %}
+                                        <option value="{{ label.name }}">
+                                        {% endfor %}
+                                    </datalist>
+
                             <input type="text" name="hidden" class="sr-only" value="{{ post.id }}">
                             <span class="input-group-btn-left">
                                 <button class="btn btn-success" type="submit">Add</button>

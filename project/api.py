@@ -60,7 +60,6 @@ def post_label():
     #        posts = posts.filter(models.Post.body.contains(body_like))
 
     label = session.query(models.Label).filter(models.Label.name == label_name).all()
-    label = label[0]
 
     ##Add logic that flashs
     if not label:
@@ -68,6 +67,7 @@ def post_label():
         data = json.dumps({"message": message})
         return Response(data, 404, mimetype="application/json")
 
+    label = label[0]
     post[0].labels.append(label)
 
     session.add(label)

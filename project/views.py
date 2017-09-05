@@ -20,9 +20,13 @@ def start():
     response = api.posts_get()
     posts = json.loads(response.data.decode("ascii"))
 
+    response = api.labels_get()
+    labels = json.loads(response.data.decode("ascii"))
+
     return render_template("index.html",
                            posts=posts,
                            logged_in=logged_in,
+                           labels=labels,
                            dp=dp.parse,
                            dt=dt)
 
@@ -31,14 +35,22 @@ def start():
 def add_label():
     logged_in = current_user.is_authenticated
     label_response = api.post_label()
+
     label_data = json.loads(label_response.data.decode("ascii"))
+
+    if label_response.status_code == 404:
+        flash("That label does not exist", "danger")
 
     post_response = api.posts_get()
     posts = json.loads(post_response.data.decode("ascii"))
 
+    response = api.labels_get()
+    labels = json.loads(response.data.decode("ascii"))
+
     return render_template("index.html",
                            data=label_data,
                            posts=posts,
+                           labels=labels,
                            logged_in=logged_in,
                            dp=dp.parse,
                            dt=dt)
@@ -53,9 +65,13 @@ def remove_label():
     post_response = api.posts_get()
     posts = json.loads(post_response.data.decode("ascii"))
 
+    response = api.labels_get()
+    labels = json.loads(response.data.decode("ascii"))
+
     return render_template("index.html",
                            data=label_data,
                            posts=posts,
+                           labels=labels,
                            logged_in=logged_in,
                            dp=dp.parse,
                            dt=dt)

@@ -48,7 +48,7 @@ def posts_get():
 @app.route("/api/label/association_add", methods=["GET","POST"])
 @decorators.accept("application/json")
 def post_label():
-    label_name = request.form["label"]
+    label_name = request.form["label"].lower()
     post_id = request.form["hidden"]
 
     post = session.query(models.Post).filter(models.Post.id == post_id).all()
@@ -177,7 +177,7 @@ def api_new_label():
         data = json.dumps({"message": message})
         return Response(data, 404, mimetype="application/json")
 
-    label = models.Label(name=label_name)
+    label = models.Label(name=label_name.lower())
 
     session.add(label)
     session.commit()

@@ -88,7 +88,7 @@ def logout_get():
 
 
 @app.route("/labels", methods=["GET"])
-
+@login_required
 def start_continue():
     logged_in = current_user.is_authenticated
     response = api.labels_get()
